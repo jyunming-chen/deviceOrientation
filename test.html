@@ -4,24 +4,33 @@
 
 <head>
 <style>
-
+	#angleInfo {
+		position: absolute;
+		bottom: 100px; width: 100%;
+		color: #ffffff;
+		text-align: center;
+	}
 
 </style>
 </head>
 
 <body> 
+<div id="angleInfo"> </div>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
 <script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js">
     
 </script>
 <script>
 var camera, scene, renderer, geometry, material, mesh, light, controls;
+var angleInfoEle;
+var gamma = 0, beta = 0;
 
 init();
 animate();
 
 function init() {
     scene = new THREE.Scene();
+angleInfoEle = window.document.getElementById ('angleInfo');
 
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
     camera.position.z = 500;
@@ -50,7 +59,9 @@ function init() {
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
 	window.addEventListener('deviceorientation', function(e) {
-	console.log (e.gamma +', ' + e.beta + ', ' + e.alpha);});
+	gamma = e.gamma;
+	beta = e.beta;
+	console.log (gamma +', ' + beta + ', ' + e.alpha);});
 }
 
 function onWindowResize() {
@@ -60,6 +71,8 @@ function onWindowResize() {
 }
 
 function animate() {
+angleInfoEle.innerHTML = gamma + ', ' + beta;
+
     controls.update();
     requestAnimationFrame(animate);
     render();
