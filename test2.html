@@ -46,7 +46,7 @@ var Ball = function () {
     this.pos = new THREE.Vector3(0, 0, 0);
     this.vel = new THREE.Vector3();
     this.force = new THREE.Vector3();
-    this.mesh = new THREE.Mesh(new THREE.SphereGeometry(10, 12, 12), new THREE.MeshPhongMaterial({
+    this.mesh = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 32), new THREE.MeshPhongMaterial({
         color: 0xff1234,
         specular: 0x444444,
         shininess: 80
@@ -187,7 +187,7 @@ function animate() {
     // euler: in radian
     // gamma/beta: in degree
 	var a = new THREE.Euler(-beta*Math.PI/180, 0, gamma*Math.PI/180, 'XYZ');
-    gravity = new THREE.Vector3(0, -20, 0);
+    gravity = new THREE.Vector3(0, -80, 0);
     gravity.applyEuler(a);
 
     var dt = clock.getDelta();
