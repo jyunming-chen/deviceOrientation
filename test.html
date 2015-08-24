@@ -17,11 +17,9 @@
 <body> 
 <div id="angleInfo"> </div>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
-<script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js">
-    
-</script>
+
 <script>
-var camera, scene, renderer, geometry, material, mesh, light, controls;
+var camera, scene, renderer, geometry, material, mesh, light;
 var angleInfoEle;
 var gamma = 0, beta = 0;
 
@@ -54,14 +52,13 @@ angleInfoEle = window.document.getElementById ('angleInfo');
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x888888);
 
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
 	window.addEventListener('deviceorientation', function(e) {
-	gamma = e.gamma;
-	beta = e.beta;
-	console.log (gamma +', ' + beta + ', ' + e.alpha);});
+		gamma = e.gamma;
+		beta = e.beta;
+		console.log (gamma +', ' + beta + ', ' + e.alpha);
+	});
 }
 
 function onWindowResize() {
@@ -71,9 +68,8 @@ function onWindowResize() {
 }
 
 function animate() {
-angleInfoEle.innerHTML = gamma + ', ' + beta;
+	angleInfoEle.innerHTML = '[gamma: ' + gamma.toFixed(2) + '], [beta: ' + beta.toFixed(2) + ']';
 
-    controls.update();
     requestAnimationFrame(animate);
     render();
 }
